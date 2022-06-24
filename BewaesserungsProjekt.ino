@@ -1,8 +1,4 @@
-// Re-writed by Arbi Abdul Jabbaar
-// Using Arduino IDE 1.8.7
-// Using HC-SR04 Module
-// Tested on 17 September 2019
-// ---------------------------------------------------------------- //
+// Code geklaut aus https://create.arduino.cc/projecthub/abdularbi17/ultrasonic-sensor-hc-sr04-with-arduino-tutorial-327ff6
 
 #define echoPin 2 // attach pin D2 Arduino to pin Echo of HC-SR04
 #define trigPin 3 //attach pin D3 Arduino to pin Trig of HC-SR04
@@ -20,6 +16,13 @@ void setup() {
 }
 
 void loop() {
+  Serial.print("Distance lol: ");
+  Serial.print(measureDistance());
+  Serial.println(" cm");
+  delay(200);
+}
+
+int measureDistance(){
   // Clears the trigPin condition
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -32,8 +35,5 @@ void loop() {
   // Calculating the distance
   distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
   // Displays the distance on the Serial Monitor
-  Serial.print("Distance: ");
-  Serial.print(distance);
-  Serial.println(" cm");
-  delay(200);
+  return distance;
 }
