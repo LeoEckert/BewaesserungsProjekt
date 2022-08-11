@@ -2,12 +2,15 @@
 
 #define echoPin 2 // attach pin D2 Arduino to pin Echo of HC-SR04
 #define trigPin 3 //attach pin D3 Arduino to pin Trig of HC-SR04
+#define LEDPin 6
+#define PumpPin 7
 
 // defines variables
 long duration; // variable for the duration of sound wave travel
 int distance; // variable for the distance measurement
 
 void setup() {
+  pinMode(LEDPin, OUTPUT);
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an OUTPUT
   pinMode(echoPin, INPUT); // Sets the echoPin as an INPUT
   Serial.begin(9600); // // Serial Communication is starting with 9600 of baudrate speed
@@ -19,7 +22,22 @@ void loop() {
   Serial.print("Distance lol: ");
   Serial.print(measureDistance());
   Serial.println(" cm");
-  delay(200);
+  if (measureDistance() <= 25){
+    runPump();
+   //delay(86400000 );                   // @TODO: wait for a day 60*60*24
+   }
+  else {
+    //led anschalten
+    //Wait for 1h
+    //LED aus
+
+  }
+  //delay(200);
+  digitalWrite(LEDPin, HIGH);           // turn the LED on (HIGH is the voltage level)
+  delay(1000);                          // wait for a second
+ 
+  digitalWrite(LEDPin, LOW);            // turn the LED off by making the voltage LOW
+  delay(1000);
 }
 
 int measureDistance(){
@@ -35,5 +53,9 @@ int measureDistance(){
   // Calculating the distance
   distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
   // Displays the distance on the Serial Monitor
-  return distance;
+  return distance; 
 }
+void runPump(){
+
+    //implementation to run Pump
+  }
